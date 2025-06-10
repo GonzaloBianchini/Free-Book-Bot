@@ -39,6 +39,7 @@ Proyecto educativo y open source:
 - Bots en Telegram
 - Buenas prácticas de estructura y versionado
 
+
 ## 📄 Licencia
 
 MIT - Libre para usar y modificar.
