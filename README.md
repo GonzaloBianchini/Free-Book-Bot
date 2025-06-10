@@ -34,7 +34,7 @@ python bot.py
 
 Proyecto educativo y open source:
 
-- Python moderno
+- Python
 - Manejo de APIs externas
 - Bots en Telegram
 - Buenas prácticas de estructura y versionado
