@@ -8,16 +8,19 @@ def search_books(title):
         print("Error: Fail to connect with API")
         return []
     data = response.json()
-    results = data.get("docs",[])[:5]   #pruebo con 5 titulos, TODO: paginados de resultados...
+    #results = data.get("docs",[])[:5]   #pruebo con 5 titulos
+    results = data.get("docs",[])
     books=[]
     
     for doc in results:
         title = doc.get("title")
         key = doc.get("key")
+        year = doc.get("first_publish_year")
         if title and key:
             books.append({
                 "Title" : title,
-                "Link" : f"https://openlibrary.org{key}"
+                "Link" : f"https://openlibrary.org{key}",
+                "Public_Year" : year
             })
     
     return books

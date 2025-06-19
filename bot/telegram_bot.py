@@ -1,10 +1,14 @@
 # bot/telegram_bot.py
 
-from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, ContextTypes
+
 from dotenv import load_dotenv
+import json
 import os
-from search import search_books
+
+from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, ContextTypes,CallbackQueryHandler
+from telegram import Update
+from handlers import handle_message,manejar_callback
+
 
 load_dotenv()
 TOKEN = os.getenv("BOT_TOKEN")
@@ -13,20 +17,18 @@ TOKEN = os.getenv("BOT_TOKEN")
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("📚 ¡Hola! Enviame el título de un libro y te diré si lo encuentro.")
 
-# Manejo de mensajes comunes
-async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    texto = update.message.text
-    resultado = search_books(texto)
-    await update.message.reply_text(resultado)
+
 
 def main():
     app = ApplicationBuilder().token(TOKEN).build()
 
     app.add_handler(CommandHandler("start", start))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+    app.add_handler(CallbackQueryHandler(manejar_callback))
 
     print("🤖 Bot iniciado...")
     app.run_polling()
+
 
 if __name__ == "__main__":
     main()
